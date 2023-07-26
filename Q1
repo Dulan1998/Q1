@@ -1,0 +1,230 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+****************************************************************************Caesar Cipher****************************************************************************
+****************************************************************************             ****************************************************************************
+public class CaesarCipher
+{
+	static String Al="abcdefghijklmnopqrstuvwxyz";
+	static String encription(String plainText,int key)
+	{
+		String cipherText="";
+		for(int i=0;i<plainText.length();i++)
+		{
+			int x=(Al.indexOf(plainText.charAt(i))+key)%26;
+			cipherText+=Al.charAt(x);
+		}
+		return cipherText;
+	}
+	static String decription(String cipherText,int key)
+	{
+		String plainText="";
+		
+		for(int i=0;i<cipherText.length();i++)
+		{
+			int x=0;
+			x=(Al.indexOf(cipherText.charAt(i))-key+26)%26;
+			plainText+=Al.charAt(x);
+		}
+		return plainText;
+	}
+	public static void main(String[] args)
+	{
+		String cipherText="abscdexyz";
+		int key=1;
+		String encriptedCode=encription(cipherText,key);
+		System.out.println("encripted Code :- "+encriptedCode);
+		String decriptedCode=decription(encriptedCode,key);
+		System.out.println("decripted Code :- "+decriptedCode);
+	}
+}
+
+****************************************************************************MonoCipher  ******************************************************************************
+****************************************************************************             ****************************************************************************
+
+class MonoCipher
+{
+	static char[] plain_T={'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'};
+	static char[] cipher_T={'d','k','v','q','f','i','b','j','w','p','e','s','c','x','h','t','m','y','a','u','o','l','e','g','z','n'};
+	static String encription(String text)
+	{
+		char[] array=text.toCharArray();
+		for(int i=0;i<array.length;i++)
+		{
+			for(int j=0;j<plain_T.length;j++)
+			{
+				if(array[i]==plain_T[j])
+				{
+					array[i]=cipher_T[j];
+					break;
+				}
+			}
+		}
+		return String.valueOf(array);
+	}
+	static String decription(String encriptedCode)
+	{
+		char[] array=encriptedCode.toCharArray();
+		for(int i=0;i<array.length;i++)
+		{
+			for(int j=0;j<plain_T.length;j++)
+			{
+				if(array[i]==cipher_T[j])
+				{
+					array[i]=plain_T[j];
+					break;
+				}
+			}
+		}
+		return String.valueOf(array);
+	}
+	public static  void main(String[] args)
+	{
+		String text="DULANSUBASINGHE";
+		String encriptedCode=encription(text.toLowerCase());
+		System.out.println(encriptedCode);
+		String decriptedCode=decription(encriptedCode);
+		System.out.println(decriptedCode);
+	}
+}
+
+
+****************************************************************************Polyalphebet  ******************************************************************************
+****************************************************************************             ****************************************************************************
+class Polyalpabetic
+{
+	static String generateKey(String plainText,String Key)
+	{
+		for(int i=0;;i++)
+		{
+			if(plainText.length()==Key.length())
+			{
+				break;
+			}
+			Key+=Key.charAt(i);
+		}
+		return Key;
+	}
+	static String encription(String plainText,String Key)
+	{
+		String cipherText="";
+		for(int i=0;i<plainText.length();i++)
+		{
+			int x=(plainText.charAt(i)+Key.charAt(i))%26;
+			x+='A';
+			cipherText+=(char)x;
+		}
+		return cipherText;
+	}
+	static String decription(String cipherText,String Key)
+	{
+		String plainText="";
+		for(int i=0;i<cipherText.length();i++)
+		{
+			int x=0;
+			if(cipherText.charAt(i)-Key.charAt(i)<0)
+			{
+				x=(cipherText.charAt(i)-Key.charAt(i)+26)%26;
+			}
+			else
+			{
+				x=(cipherText.charAt(i)-Key.charAt(i))%26;
+			}
+			x+='A';
+			plainText+=(char)x;
+		}
+		return plainText;
+	}
+	public static void main(String[] args)
+	{
+		String plainText="THISIS";
+		String Key="CAR";
+		String keyword=generateKey(plainText,Key);
+		String encriptedCode=encription(plainText,keyword);
+		System.out.println("encripted Code :- "+encriptedCode);
+		String decriptedCode=decription(encriptedCode,keyword);
+		System.out.println("decripted Code :- "+decriptedCode);
+	}
+}
+
+
+**************************************************************************** OTP        ******************************************************************************
+****************************************************************************             ****************************************************************************
+
+class OTP
+{
+	static String Al="abcdefghijklmnopqrstuvwxyz";
+	static String encription(String plainText,String key)
+	{
+		String cipherText="";
+		for(int i=0;i<plainText.length();i++)
+		{
+			int x=(Al.indexOf(plainText.charAt(i))+Al.indexOf(key.charAt(i)))%26;
+			cipherText+=Al.charAt(x);
+		}
+		return cipherText;
+	}
+	static String decription(String cipherText,String key)
+	{
+		String plainText="";
+		for(int i=0;i<cipherText.length();i++)
+		{
+			int x=0;
+			if(Al.indexOf(cipherText.charAt(i))-Al.indexOf(key.charAt(i))<0)
+			{
+				x=((Al.indexOf(cipherText.charAt(i))-Al.indexOf(key.charAt(i))+26)%26);
+			}
+			else
+			{
+				x=((Al.indexOf(cipherText.charAt(i))-Al.indexOf(key.charAt(i)))%26);
+			}
+			plainText+=Al.charAt(x);
+		}
+		return plainText;
+	}
+	public static void main(String[] args)
+	{
+		String text="abcd";
+		String key="abcd";
+		
+		String encriptedCode=encription(text,key);
+		System.out.println("encripted Code :- "+encriptedCode);
+		String decriptedCode=decription(encriptedCode,key);
+		System.out.println("decripted Code :- "+decriptedCode);
+	}
+}
